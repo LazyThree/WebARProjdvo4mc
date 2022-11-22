@@ -8,6 +8,7 @@
         <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
         <script src="https://raw.githack.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
         <script>
+
  AFRAME.registerComponent('run', {
     init: function()
     {
@@ -43,6 +44,120 @@
         }
     }
 });
+            
+            
+             AFRAME.registerComponent('run', {
+    init: function()
+    {
+        this.m0 = document.querySelector("#m0");
+        this.m1 = document.querySelector("#m2");
+        this.p0 = new THREE.Vector3();
+        this.p1 = new THREE.Vector3();
+
+        let geometry = new THREE.CylinderGeometry( 0.05, 0.05, 1, 12 );
+        geometry.applyMatrix( new THREE.Matrix4().makeTranslation( 0, 0.5, 0 ) );
+        geometry.applyMatrix( new THREE.Matrix4().makeRotationX( THREE.Math.degToRad( 90 ) ) );
+        let material = new THREE.MeshLambertMaterial( {color: 0xFF0000} );
+        this.cylinder = new THREE.Mesh( geometry, material );
+        this.cylinderGroup = document.querySelector('#cylinderGroup').object3D;
+        this.cylinderGroup.add( this.cylinder );
+    },
+
+    tick: function (time, deltaTime)
+    {
+        if ( markerVisible["m0"] && markerVisible["m2"] )
+        {
+            this.m0.object3D.getWorldPosition(this.p0);
+            this.m1.object3D.getWorldPosition(this.p1);
+
+            let distance = this.p0.distanceTo( this.p1 );
+            this.cylinderGroup.lookAt( this.p1 );
+            this.cylinder.scale.set(1,1,distance);
+            this.cylinder.visible = true;
+        }
+        else
+        {
+            this.cylinder.visible = false;
+        }
+    }
+});
+            
+            
+ AFRAME.registerComponent('run', {
+    init: function()
+    {
+        this.m0 = document.querySelector("#m0");
+        this.m1 = document.querySelector("#m3");
+        this.p0 = new THREE.Vector3();
+        this.p1 = new THREE.Vector3();
+
+        let geometry = new THREE.CylinderGeometry( 0.05, 0.05, 1, 12 );
+        geometry.applyMatrix( new THREE.Matrix4().makeTranslation( 0, 0.5, 0 ) );
+        geometry.applyMatrix( new THREE.Matrix4().makeRotationX( THREE.Math.degToRad( 90 ) ) );
+        let material = new THREE.MeshLambertMaterial( {color: 0xFF0000} );
+        this.cylinder = new THREE.Mesh( geometry, material );
+        this.cylinderGroup = document.querySelector('#cylinderGroup').object3D;
+        this.cylinderGroup.add( this.cylinder );
+    },
+
+    tick: function (time, deltaTime)
+    {
+        if ( markerVisible["m0"] && markerVisible["m3"] )
+        {
+            this.m0.object3D.getWorldPosition(this.p0);
+            this.m1.object3D.getWorldPosition(this.p1);
+
+            let distance = this.p0.distanceTo( this.p1 );
+            this.cylinderGroup.lookAt( this.p1 );
+            this.cylinder.scale.set(1,1,distance);
+            this.cylinder.visible = true;
+        }
+        else
+        {
+            this.cylinder.visible = false;
+        }
+    }
+});
+            
+            
+            
+            
+AFRAME.registerComponent('run', {
+    init: function()
+    {
+        this.m0 = document.querySelector("#m0");
+        this.m1 = document.querySelector("#m4");
+        this.p0 = new THREE.Vector3();
+        this.p1 = new THREE.Vector3();
+
+        let geometry = new THREE.CylinderGeometry( 0.05, 0.05, 1, 12 );
+        geometry.applyMatrix( new THREE.Matrix4().makeTranslation( 0, 0.5, 0 ) );
+        geometry.applyMatrix( new THREE.Matrix4().makeRotationX( THREE.Math.degToRad( 90 ) ) );
+        let material = new THREE.MeshLambertMaterial( {color: 0xFF0000} );
+        this.cylinder = new THREE.Mesh( geometry, material );
+        this.cylinderGroup = document.querySelector('#cylinderGroup').object3D;
+        this.cylinderGroup.add( this.cylinder );
+    },
+
+    tick: function (time, deltaTime)
+    {
+        if ( markerVisible["m0"] && markerVisible["m4"] )
+        {
+            this.m0.object3D.getWorldPosition(this.p0);
+            this.m1.object3D.getWorldPosition(this.p1);
+
+            let distance = this.p0.distanceTo( this.p1 );
+            this.cylinderGroup.lookAt( this.p1 );
+            this.cylinder.scale.set(1,1,distance);
+            this.cylinder.visible = true;
+        }
+        else
+        {
+            this.cylinder.visible = false;
+        }
+    }
+});
+            
         </script>
     </head>
 
@@ -79,6 +194,7 @@
                 <a-entity
                     look-at="[gps-camera]"
                     animation-mixer="loop: repeat"
+                    id="m2"
                     gltf-model="#animated-asset"
                     scale="0.06905123661735366 0.06905123661735366 0.06905123661735366"
                     gps-entity-place="latitude: 30.30827079; longitude: 120.0593102;"
@@ -86,6 +202,7 @@
                 <a-entity
                     look-at="[gps-camera]"
                     animation-mixer="loop: repeat"
+                    id="m3"
                     gltf-model="#animated-asset"
                     scale="0.06905123661735366 0.06905123661735366 0.06905123661735366"
                     gps-entity-place="latitude: 30.30840798; longitude: 120.0597093;"
@@ -93,6 +210,7 @@
                 <a-entity
                     look-at="[gps-camera]"
                     animation-mixer="loop: repeat"
+                    id="m4"
                     gltf-model="#animated-asset"
                     scale="0.06905123661735366 0.06905123661735366 0.06905123661735366"
                     gps-entity-place="latitude: 30.30862935; longitude: 120.0596189;"
