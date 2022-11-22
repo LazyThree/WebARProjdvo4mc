@@ -7,6 +7,43 @@
         <script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
         <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
         <script src="https://raw.githack.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
+        <script>
+ AFRAME.registerComponent('run', {
+    init: function()
+    {
+        this.m0 = document.querySelector("#m0");
+        this.m1 = document.querySelector("#m1");
+        this.p0 = new THREE.Vector3();
+        this.p1 = new THREE.Vector3();
+
+        let geometry = new THREE.CylinderGeometry( 0.05, 0.05, 1, 12 );
+        geometry.applyMatrix( new THREE.Matrix4().makeTranslation( 0, 0.5, 0 ) );
+        geometry.applyMatrix( new THREE.Matrix4().makeRotationX( THREE.Math.degToRad( 90 ) ) );
+        let material = new THREE.MeshLambertMaterial( {color: 0xFF0000} );
+        this.cylinder = new THREE.Mesh( geometry, material );
+        this.cylinderGroup = document.querySelector('#cylinderGroup').object3D;
+        this.cylinderGroup.add( this.cylinder );
+    },
+
+    tick: function (time, deltaTime)
+    {
+        if ( markerVisible["m0"] && markerVisible["m1"] )
+        {
+            this.m0.object3D.getWorldPosition(this.p0);
+            this.m1.object3D.getWorldPosition(this.p1);
+
+            let distance = this.p0.distanceTo( this.p1 );
+            this.cylinderGroup.lookAt( this.p1 );
+            this.cylinder.scale.set(1,1,distance);
+            this.cylinder.visible = true;
+        }
+        else
+        {
+            this.cylinder.visible = false;
+        }
+    }
+});
+        </script>
     </head>
 
     <body style="margin: 0; overflow: hidden;">
@@ -26,6 +63,7 @@
                 <a-entity
                     look-at="[gps-camera]"
                     animation-mixer="loop: repeat"
+                    id="m0"
                     gltf-model="#animated-asset"
                     scale="0.06905123661735366 0.06905123661735366 0.06905123661735366"
                     gps-entity-place="latitude: 30.30906867; longitude: 120.0599634;"
@@ -33,6 +71,7 @@
                 <a-entity
                     look-at="[gps-camera]"
                     animation-mixer="loop: repeat"
+                    id="m1"
                     gltf-model="#animated-asset"
                     scale="0.06905123661735366 0.06905123661735366 0.06905123661735366"
                     gps-entity-place="latitude: 30.30892868; longitude: 120.0595004;"
@@ -163,8 +202,7 @@
                     scale="0.06905123661735366 0.06905123661735366 0.06905123661735366"
                     gps-entity-place="latitude: 30.30908286414483; longitude: 120.06006728857757;"
                 ></a-entity>
-            <a-entity line="start: 0 1 0; end: 2 0 -5; color: red"
-          line__2="start: -2 4 5; end: 0 4 -3; color: green"></a-entity>
+
 
             <a-camera gps-camera rotation-reader></a-camera>
         </a-scene>
