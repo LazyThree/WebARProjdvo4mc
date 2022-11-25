@@ -5,159 +5,555 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
         <script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
-        <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
+        <script src="https://raw.githack.com/AR-js-org/AR.js/3.3.1/aframe/build/aframe-ar-nft.js"></script>
         <script src="https://raw.githack.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
         <script>
+    AFRAME.registerComponent("tunnel", {
+            init: function () {
+                const firstObj = document.getElementById("nineth");
+                const secondObj = document.getElementById("third")
+                const firstPos = new THREE.Vector3();
+                const secondPos = new THREE.Vector3();
+                const el = this.el
+                const cylinder = this.el.querySelector("a-cylinder")
 
- AFRAME.registerComponent('run', {
-    init: function()
-    {
-        this.m0 = document.querySelector("#m0");
-        this.m1 = document.querySelector("#m1");
-        this.p0 = new THREE.Vector3();
-        this.p1 = new THREE.Vector3();
+                const idx = setInterval(() => {
+                    firstPos.copy(firstObj.object3D.position)
+                    secondPos.copy(secondObj.object3D.position)
 
-        let geometry = new THREE.CylinderGeometry( 0.05, 0.05, 1, 12 );
-        geometry.applyMatrix( new THREE.Matrix4().makeTranslation( 0, 0.5, 0 ) );
-        geometry.applyMatrix( new THREE.Matrix4().makeRotationX( THREE.Math.degToRad( 90 ) ) );
-        let material = new THREE.MeshLambertMaterial( {color: 0xFF0000} );
-        this.cylinder = new THREE.Mesh( geometry, material );
-        this.cylinderGroup = document.querySelector('#cylinderGroup').object3D;
-        this.cylinderGroup.add( this.cylinder );
-    },
+                    const distance = firstPos.distanceTo(secondPos)
+                    if (!distance) return;
+                    console.log("anchors ready")
+                    clearInterval(idx);
 
-    tick: function (time, deltaTime)
-    {
-        if ( markerVisible["m0"] && markerVisible["m1"] )
-        {
-            this.m0.object3D.getWorldPosition(this.p0);
-            this.m1.object3D.getWorldPosition(this.p1);
+                    const middle = firstPos.multiplyScalar(-1).add(secondPos).multiplyScalar(1 / 2)
 
-            let distance = this.p0.distanceTo( this.p1 );
-            this.cylinderGroup.lookAt( this.p1 );
-            this.cylinder.scale.set(1,1,distance);
-            this.cylinder.visible = true;
-        }
-        else
-        {
-            this.cylinder.visible = false;
-        }
-    }
-});
-            
-            
-             AFRAME.registerComponent('run', {
-    init: function()
-    {
-        this.m0 = document.querySelector("#m0");
-        this.m1 = document.querySelector("#m2");
-        this.p0 = new THREE.Vector3();
-        this.p1 = new THREE.Vector3();
+                    cylinder.setAttribute("height", distance)
+                    el.object3D.lookAt(firstPos)
+                    el.object3D.position.copy(middle).add(firstObj.object3D.position)
+                }, 500)
+            }
+        })
+    AFRAME.registerComponent("tunnel_1", {
+            init: function () {
+                const firstObj = document.getElementById("first");
+                const secondObj = document.getElementById("third")
+                const firstPos = new THREE.Vector3();
+                const secondPos = new THREE.Vector3();
+                const el = this.el
+                const cylinder = this.el.querySelector("a-cylinder")
 
-        let geometry = new THREE.CylinderGeometry( 0.05, 0.05, 1, 12 );
-        geometry.applyMatrix( new THREE.Matrix4().makeTranslation( 0, 0.5, 0 ) );
-        geometry.applyMatrix( new THREE.Matrix4().makeRotationX( THREE.Math.degToRad( 90 ) ) );
-        let material = new THREE.MeshLambertMaterial( {color: 0xFF0000} );
-        this.cylinder = new THREE.Mesh( geometry, material );
-        this.cylinderGroup = document.querySelector('#cylinderGroup').object3D;
-        this.cylinderGroup.add( this.cylinder );
-    },
+                const idx = setInterval(() => {
+                    firstPos.copy(firstObj.object3D.position)
+                    secondPos.copy(secondObj.object3D.position)
 
-    tick: function (time, deltaTime)
-    {
-        if ( markerVisible["m0"] && markerVisible["m2"] )
-        {
-            this.m0.object3D.getWorldPosition(this.p0);
-            this.m1.object3D.getWorldPosition(this.p1);
+                    const distance = firstPos.distanceTo(secondPos)
+                    if (!distance) return;
+                    console.log("anchors ready")
+                    clearInterval(idx);
 
-            let distance = this.p0.distanceTo( this.p1 );
-            this.cylinderGroup.lookAt( this.p1 );
-            this.cylinder.scale.set(1,1,distance);
-            this.cylinder.visible = true;
-        }
-        else
-        {
-            this.cylinder.visible = false;
-        }
-    }
-});
-            
-            
- AFRAME.registerComponent('run', {
-    init: function()
-    {
-        this.m0 = document.querySelector("#m0");
-        this.m1 = document.querySelector("#m3");
-        this.p0 = new THREE.Vector3();
-        this.p1 = new THREE.Vector3();
+                    const middle = firstPos.multiplyScalar(-1).add(secondPos).multiplyScalar(1 / 2)
 
-        let geometry = new THREE.CylinderGeometry( 0.05, 0.05, 1, 12 );
-        geometry.applyMatrix( new THREE.Matrix4().makeTranslation( 0, 0.5, 0 ) );
-        geometry.applyMatrix( new THREE.Matrix4().makeRotationX( THREE.Math.degToRad( 90 ) ) );
-        let material = new THREE.MeshLambertMaterial( {color: 0xFF0000} );
-        this.cylinder = new THREE.Mesh( geometry, material );
-        this.cylinderGroup = document.querySelector('#cylinderGroup').object3D;
-        this.cylinderGroup.add( this.cylinder );
-    },
+                    cylinder.setAttribute("height", distance)
+                    el.object3D.lookAt(firstPos)
+                    el.object3D.position.copy(middle).add(firstObj.object3D.position)
+                }, 500)
+            }
+        })
+        AFRAME.registerComponent("tunnel_2", {
+            init: function () {
+                const firstObj = document.getElementById("first");
+                const secondObj = document.getElementById("third")
+                const firstPos = new THREE.Vector3();
+                const secondPos = new THREE.Vector3();
+                const el = this.el
+                const cylinder = this.el.querySelector("a-cylinder")
 
-    tick: function (time, deltaTime)
-    {
-        if ( markerVisible["m0"] && markerVisible["m3"] )
-        {
-            this.m0.object3D.getWorldPosition(this.p0);
-            this.m1.object3D.getWorldPosition(this.p1);
+                const idx = setInterval(() => {
+                    firstPos.copy(firstObj.object3D.position)
+                    secondPos.copy(secondObj.object3D.position)
 
-            let distance = this.p0.distanceTo( this.p1 );
-            this.cylinderGroup.lookAt( this.p1 );
-            this.cylinder.scale.set(1,1,distance);
-            this.cylinder.visible = true;
-        }
-        else
-        {
-            this.cylinder.visible = false;
-        }
-    }
-});
-            
-            
-            
-            
-AFRAME.registerComponent('run', {
-    init: function()
-    {
-        this.m0 = document.querySelector("#m0");
-        this.m1 = document.querySelector("#m4");
-        this.p0 = new THREE.Vector3();
-        this.p1 = new THREE.Vector3();
+                    const distance = firstPos.distanceTo(secondPos)
+                    if (!distance) return;
+                    console.log("anchors ready")
+                    clearInterval(idx);
 
-        let geometry = new THREE.CylinderGeometry( 0.05, 0.05, 1, 12 );
-        geometry.applyMatrix( new THREE.Matrix4().makeTranslation( 0, 0.5, 0 ) );
-        geometry.applyMatrix( new THREE.Matrix4().makeRotationX( THREE.Math.degToRad( 90 ) ) );
-        let material = new THREE.MeshLambertMaterial( {color: 0xFF0000} );
-        this.cylinder = new THREE.Mesh( geometry, material );
-        this.cylinderGroup = document.querySelector('#cylinderGroup').object3D;
-        this.cylinderGroup.add( this.cylinder );
-    },
+                    const middle = firstPos.multiplyScalar(-1).add(secondPos).multiplyScalar(1 / 2)
 
-    tick: function (time, deltaTime)
-    {
-        if ( markerVisible["m0"] && markerVisible["m4"] )
-        {
-            this.m0.object3D.getWorldPosition(this.p0);
-            this.m1.object3D.getWorldPosition(this.p1);
+                    cylinder.setAttribute("height", distance)
+                    el.object3D.lookAt(firstPos)
+                    el.object3D.position.copy(middle).add(firstObj.object3D.position)
+                }, 500)
+            }
+        })
+        AFRAME.registerComponent("tunnel_3", {
+            init: function () {
+                const firstObj = document.getElementById("second");
+                const secondObj = document.getElementById("third")
+                const firstPos = new THREE.Vector3();
+                const secondPos = new THREE.Vector3();
+                const el = this.el
+                const cylinder = this.el.querySelector("a-cylinder")
 
-            let distance = this.p0.distanceTo( this.p1 );
-            this.cylinderGroup.lookAt( this.p1 );
-            this.cylinder.scale.set(1,1,distance);
-            this.cylinder.visible = true;
-        }
-        else
-        {
-            this.cylinder.visible = false;
-        }
-    }
-});
-            
+                const idx = setInterval(() => {
+                    firstPos.copy(firstObj.object3D.position)
+                    secondPos.copy(secondObj.object3D.position)
+
+                    const distance = firstPos.distanceTo(secondPos)
+                    if (!distance) return;
+                    console.log("anchors ready")
+                    clearInterval(idx);
+
+                    const middle = firstPos.multiplyScalar(-1).add(secondPos).multiplyScalar(1 / 2)
+
+                    cylinder.setAttribute("height", distance)
+                    el.object3D.lookAt(firstPos)
+                    el.object3D.position.copy(middle).add(firstObj.object3D.position)
+                }, 500)
+            }
+        })
+        AFRAME.registerComponent("tunnel_4", {
+            init: function () {
+                const firstObj = document.getElementById("second");
+                const secondObj = document.getElementById("fourth")
+                const firstPos = new THREE.Vector3();
+                const secondPos = new THREE.Vector3();
+                const el = this.el
+                const cylinder = this.el.querySelector("a-cylinder")
+
+                const idx = setInterval(() => {
+                    firstPos.copy(firstObj.object3D.position)
+                    secondPos.copy(secondObj.object3D.position)
+
+                    const distance = firstPos.distanceTo(secondPos)
+                    if (!distance) return;
+                    console.log("anchors ready")
+                    clearInterval(idx);
+
+                    const middle = firstPos.multiplyScalar(-1).add(secondPos).multiplyScalar(1 / 2)
+
+                    cylinder.setAttribute("height", distance)
+                    el.object3D.lookAt(firstPos)
+                    el.object3D.position.copy(middle).add(firstObj.object3D.position)
+                }, 500)
+            }
+        })
+        AFRAME.registerComponent("tunnel_5", {
+            init: function () {
+                const firstObj = document.getElementById("fifth");
+                const secondObj = document.getElementById("sixth")
+                const firstPos = new THREE.Vector3();
+                const secondPos = new THREE.Vector3();
+                const el = this.el
+                const cylinder = this.el.querySelector("a-cylinder")
+
+                const idx = setInterval(() => {
+                    firstPos.copy(firstObj.object3D.position)
+                    secondPos.copy(secondObj.object3D.position)
+
+                    const distance = firstPos.distanceTo(secondPos)
+                    if (!distance) return;
+                    console.log("anchors ready")
+                    clearInterval(idx);
+
+                    const middle = firstPos.multiplyScalar(-1).add(secondPos).multiplyScalar(1 / 2)
+
+                    cylinder.setAttribute("height", distance)
+                    el.object3D.lookAt(firstPos)
+                    el.object3D.position.copy(middle).add(firstObj.object3D.position)
+                }, 500)
+            }
+        })
+        AFRAME.registerComponent("tunnel_6", {
+            init: function () {
+                const firstObj = document.getElementById("second");
+                const secondObj = document.getElementById("sixth")
+                const firstPos = new THREE.Vector3();
+                const secondPos = new THREE.Vector3();
+                const el = this.el
+                const cylinder = this.el.querySelector("a-cylinder")
+
+                const idx = setInterval(() => {
+                    firstPos.copy(firstObj.object3D.position)
+                    secondPos.copy(secondObj.object3D.position)
+
+                    const distance = firstPos.distanceTo(secondPos)
+                    if (!distance) return;
+                    console.log("anchors ready")
+                    clearInterval(idx);
+
+                    const middle = firstPos.multiplyScalar(-1).add(secondPos).multiplyScalar(1 / 2)
+
+                    cylinder.setAttribute("height", distance)
+                    el.object3D.lookAt(firstPos)
+                    el.object3D.position.copy(middle).add(firstObj.object3D.position)
+                }, 500)
+            }
+        })
+        AFRAME.registerComponent("tunnel_7", {
+            init: function () {
+                const firstObj = document.getElementById("third");
+                const secondObj = document.getElementById("seventh")
+                const firstPos = new THREE.Vector3();
+                const secondPos = new THREE.Vector3();
+                const el = this.el
+                const cylinder = this.el.querySelector("a-cylinder")
+
+                const idx = setInterval(() => {
+                    firstPos.copy(firstObj.object3D.position)
+                    secondPos.copy(secondObj.object3D.position)
+
+                    const distance = firstPos.distanceTo(secondPos)
+                    if (!distance) return;
+                    console.log("anchors ready")
+                    clearInterval(idx);
+
+                    const middle = firstPos.multiplyScalar(-1).add(secondPos).multiplyScalar(1 / 2)
+
+                    cylinder.setAttribute("height", distance)
+                    el.object3D.lookAt(firstPos)
+                    el.object3D.position.copy(middle).add(firstObj.object3D.position)
+                }, 500)
+            }
+        })
+        AFRAME.registerComponent("tunnel_8", {
+            init: function () {
+                const firstObj = document.getElementById("tenth");
+                const secondObj = document.getElementById("thirdth")
+                const firstPos = new THREE.Vector3();
+                const secondPos = new THREE.Vector3();
+                const el = this.el
+                const cylinder = this.el.querySelector("a-cylinder")
+
+                const idx = setInterval(() => {
+                    firstPos.copy(firstObj.object3D.position)
+                    secondPos.copy(secondObj.object3D.position)
+
+                    const distance = firstPos.distanceTo(secondPos)
+                    if (!distance) return;
+                    console.log("anchors ready")
+                    clearInterval(idx);
+
+                    const middle = firstPos.multiplyScalar(-1).add(secondPos).multiplyScalar(1 / 2)
+
+                    cylinder.setAttribute("height", distance)
+                    el.object3D.lookAt(firstPos)
+                    el.object3D.position.copy(middle).add(firstObj.object3D.position)
+                }, 500)
+            }
+        })
+        AFRAME.registerComponent("tunnel_9", {
+            init: function () {
+                const firstObj = document.getElementById("fifth");
+                const secondObj = document.getElementById("tenth")
+                const firstPos = new THREE.Vector3();
+                const secondPos = new THREE.Vector3();
+                const el = this.el
+                const cylinder = this.el.querySelector("a-cylinder")
+
+                const idx = setInterval(() => {
+                    firstPos.copy(firstObj.object3D.position)
+                    secondPos.copy(secondObj.object3D.position)
+
+                    const distance = firstPos.distanceTo(secondPos)
+                    if (!distance) return;
+                    console.log("anchors ready")
+                    clearInterval(idx);
+
+                    const middle = firstPos.multiplyScalar(-1).add(secondPos).multiplyScalar(1 / 2)
+
+                    cylinder.setAttribute("height", distance)
+                    el.object3D.lookAt(firstPos)
+                    el.object3D.position.copy(middle).add(firstObj.object3D.position)
+                }, 500)
+            }
+        })
+        AFRAME.registerComponent("tunnel_10", {
+            init: function () {
+                const firstObj = document.getElementById("third");
+                const secondObj = document.getElementById("fifteenth")
+                const firstPos = new THREE.Vector3();
+                const secondPos = new THREE.Vector3();
+                const el = this.el
+                const cylinder = this.el.querySelector("a-cylinder")
+
+                const idx = setInterval(() => {
+                    firstPos.copy(firstObj.object3D.position)
+                    secondPos.copy(secondObj.object3D.position)
+
+                    const distance = firstPos.distanceTo(secondPos)
+                    if (!distance) return;
+                    console.log("anchors ready")
+                    clearInterval(idx);
+
+                    const middle = firstPos.multiplyScalar(-1).add(secondPos).multiplyScalar(1 / 2)
+
+                    cylinder.setAttribute("height", distance)
+                    el.object3D.lookAt(firstPos)
+                    el.object3D.position.copy(middle).add(firstObj.object3D.position)
+                }, 500)
+            }
+        })
+        AFRAME.registerComponent("tunnel_11", {
+            init: function () {
+                const firstObj = document.getElementById("tenth");
+                const secondObj = document.getElementById("sixteenth")
+                const firstPos = new THREE.Vector3();
+                const secondPos = new THREE.Vector3();
+                const el = this.el
+                const cylinder = this.el.querySelector("a-cylinder")
+
+                const idx = setInterval(() => {
+                    firstPos.copy(firstObj.object3D.position)
+                    secondPos.copy(secondObj.object3D.position)
+
+                    const distance = firstPos.distanceTo(secondPos)
+                    if (!distance) return;
+                    console.log("anchors ready")
+                    clearInterval(idx);
+
+                    const middle = firstPos.multiplyScalar(-1).add(secondPos).multiplyScalar(1 / 2)
+
+                    cylinder.setAttribute("height", distance)
+                    el.object3D.lookAt(firstPos)
+                    el.object3D.position.copy(middle).add(firstObj.object3D.position)
+                }, 500)
+            }
+        })
+        AFRAME.registerComponent("tunnel_12", {
+            init: function () {
+                const firstObj = document.getElementById("eleven");
+                const secondObj = document.getElementById("eighteenth")
+                const firstPos = new THREE.Vector3();
+                const secondPos = new THREE.Vector3();
+                const el = this.el
+                const cylinder = this.el.querySelector("a-cylinder")
+
+                const idx = setInterval(() => {
+                    firstPos.copy(firstObj.object3D.position)
+                    secondPos.copy(secondObj.object3D.position)
+
+                    const distance = firstPos.distanceTo(secondPos)
+                    if (!distance) return;
+                    console.log("anchors ready")
+                    clearInterval(idx);
+
+                    const middle = firstPos.multiplyScalar(-1).add(secondPos).multiplyScalar(1 / 2)
+
+                    cylinder.setAttribute("height", distance)
+                    el.object3D.lookAt(firstPos)
+                    el.object3D.position.copy(middle).add(firstObj.object3D.position)
+                }, 500)
+            }
+        })
+        AFRAME.registerComponent("tunnel_13", {
+            init: function () {
+                const firstObj = document.getElementById("nineth");
+                const secondObj = document.getElementById("nineteenth")
+                const firstPos = new THREE.Vector3();
+                const secondPos = new THREE.Vector3();
+                const el = this.el
+                const cylinder = this.el.querySelector("a-cylinder")
+
+                const idx = setInterval(() => {
+                    firstPos.copy(firstObj.object3D.position)
+                    secondPos.copy(secondObj.object3D.position)
+
+                    const distance = firstPos.distanceTo(secondPos)
+                    if (!distance) return;
+                    console.log("anchors ready")
+                    clearInterval(idx);
+
+                    const middle = firstPos.multiplyScalar(-1).add(secondPos).multiplyScalar(1 / 2)
+
+                    cylinder.setAttribute("height", distance)
+                    el.object3D.lookAt(firstPos)
+                    el.object3D.position.copy(middle).add(firstObj.object3D.position)
+                }, 500)
+            }
+        })
+        AFRAME.registerComponent("tunnel_14", {
+            init: function () {
+                const firstObj = document.getElementById("fifth");
+                const secondObj = document.getElementById("fifteenth")
+                const firstPos = new THREE.Vector3();
+                const secondPos = new THREE.Vector3();
+                const el = this.el
+                const cylinder = this.el.querySelector("a-cylinder")
+
+                const idx = setInterval(() => {
+                    firstPos.copy(firstObj.object3D.position)
+                    secondPos.copy(secondObj.object3D.position)
+
+                    const distance = firstPos.distanceTo(secondPos)
+                    if (!distance) return;
+                    console.log("anchors ready")
+                    clearInterval(idx);
+
+                    const middle = firstPos.multiplyScalar(-1).add(secondPos).multiplyScalar(1 / 2)
+
+                    cylinder.setAttribute("height", distance)
+                    el.object3D.lookAt(firstPos)
+                    el.object3D.position.copy(middle).add(firstObj.object3D.position)
+                }, 500)
+            }
+        })
+        AFRAME.registerComponent("tunnel_15", {
+            init: function () {
+                const firstObj = document.getElementById("sixth");
+                const secondObj = document.getElementById("tenth")
+                const firstPos = new THREE.Vector3();
+                const secondPos = new THREE.Vector3();
+                const el = this.el
+                const cylinder = this.el.querySelector("a-cylinder")
+
+                const idx = setInterval(() => {
+                    firstPos.copy(firstObj.object3D.position)
+                    secondPos.copy(secondObj.object3D.position)
+
+                    const distance = firstPos.distanceTo(secondPos)
+                    if (!distance) return;
+                    console.log("anchors ready")
+                    clearInterval(idx);
+
+                    const middle = firstPos.multiplyScalar(-1).add(secondPos).multiplyScalar(1 / 2)
+
+                    cylinder.setAttribute("height", distance)
+                    el.object3D.lookAt(firstPos)
+                    el.object3D.position.copy(middle).add(firstObj.object3D.position)
+                }, 500)
+            }
+        })
+        AFRAME.registerComponent("tunnel_16", {
+            init: function () {
+                const firstObj = document.getElementById("sixth");
+                const secondObj = document.getElementById("twelvth")
+                const firstPos = new THREE.Vector3();
+                const secondPos = new THREE.Vector3();
+                const el = this.el
+                const cylinder = this.el.querySelector("a-cylinder")
+
+                const idx = setInterval(() => {
+                    firstPos.copy(firstObj.object3D.position)
+                    secondPos.copy(secondObj.object3D.position)
+
+                    const distance = firstPos.distanceTo(secondPos)
+                    if (!distance) return;
+                    console.log("anchors ready")
+                    clearInterval(idx);
+
+                    const middle = firstPos.multiplyScalar(-1).add(secondPos).multiplyScalar(1 / 2)
+
+                    cylinder.setAttribute("height", distance)
+                    el.object3D.lookAt(firstPos)
+                    el.object3D.position.copy(middle).add(firstObj.object3D.position)
+                }, 500)
+            }
+        })
+        AFRAME.registerComponent("tunnel_17", {
+            init: function () {
+                const firstObj = document.getElementById("first");
+                const secondObj = document.getElementById("tennth")
+                const firstPos = new THREE.Vector3();
+                const secondPos = new THREE.Vector3();
+                const el = this.el
+                const cylinder = this.el.querySelector("a-cylinder")
+
+                const idx = setInterval(() => {
+                    firstPos.copy(firstObj.object3D.position)
+                    secondPos.copy(secondObj.object3D.position)
+
+                    const distance = firstPos.distanceTo(secondPos)
+                    if (!distance) return;
+                    console.log("anchors ready")
+                    clearInterval(idx);
+
+                    const middle = firstPos.multiplyScalar(-1).add(secondPos).multiplyScalar(1 / 2)
+
+                    cylinder.setAttribute("height", distance)
+                    el.object3D.lookAt(firstPos)
+                    el.object3D.position.copy(middle).add(firstObj.object3D.position)
+                }, 500)
+            }
+        })
+        AFRAME.registerComponent("tunnel_18", {
+            init: function () {
+                const firstObj = document.getElementById("second");
+                const secondObj = document.getElementById("forteenth")
+                const firstPos = new THREE.Vector3();
+                const secondPos = new THREE.Vector3();
+                const el = this.el
+                const cylinder = this.el.querySelector("a-cylinder")
+
+                const idx = setInterval(() => {
+                    firstPos.copy(firstObj.object3D.position)
+                    secondPos.copy(secondObj.object3D.position)
+
+                    const distance = firstPos.distanceTo(secondPos)
+                    if (!distance) return;
+                    console.log("anchors ready")
+                    clearInterval(idx);
+
+                    const middle = firstPos.multiplyScalar(-1).add(secondPos).multiplyScalar(1 / 2)
+
+                    cylinder.setAttribute("height", distance)
+                    el.object3D.lookAt(firstPos)
+                    el.object3D.position.copy(middle).add(firstObj.object3D.position)
+                }, 500)
+            }
+        })
+        AFRAME.registerComponent("tunnel_19", {
+            init: function () {
+                const firstObj = document.getElementById("third");
+                const secondObj = document.getElementById("nineth")
+                const firstPos = new THREE.Vector3();
+                const secondPos = new THREE.Vector3();
+                const el = this.el
+                const cylinder = this.el.querySelector("a-cylinder")
+
+                const idx = setInterval(() => {
+                    firstPos.copy(firstObj.object3D.position)
+                    secondPos.copy(secondObj.object3D.position)
+
+                    const distance = firstPos.distanceTo(secondPos)
+                    if (!distance) return;
+                    console.log("anchors ready")
+                    clearInterval(idx);
+
+                    const middle = firstPos.multiplyScalar(-1).add(secondPos).multiplyScalar(1 / 2)
+
+                    cylinder.setAttribute("height", distance)
+                    el.object3D.lookAt(firstPos)
+                    el.object3D.position.copy(middle).add(firstObj.object3D.position)
+                }, 500)
+            }
+        })
+        AFRAME.registerComponent("tunnel_20", {
+            init: function () {
+                const firstObj = document.getElementById("fourth");
+                const secondObj = document.getElementById("tenth")
+                const firstPos = new THREE.Vector3();
+                const secondPos = new THREE.Vector3();
+                const el = this.el
+                const cylinder = this.el.querySelector("a-cylinder")
+
+                const idx = setInterval(() => {
+                    firstPos.copy(firstObj.object3D.position)
+                    secondPos.copy(secondObj.object3D.position)
+
+                    const distance = firstPos.distanceTo(secondPos)
+                    if (!distance) return;
+                    console.log("anchors ready")
+                    clearInterval(idx);
+
+                    const middle = firstPos.multiplyScalar(-1).add(secondPos).multiplyScalar(1 / 2)
+
+                    cylinder.setAttribute("height", distance)
+                    el.object3D.lookAt(firstPos)
+                    el.object3D.position.copy(middle).add(firstObj.object3D.position)
+                }, 500)
+            }
+        })
         </script>
     </head>
 
@@ -174,155 +570,267 @@ AFRAME.registerComponent('run', {
                     src="assets/asset.gltf"
                 ></a-asset-item>
             </a-assets>
+                <a-entity
+                    look-at="[gps-camera]"
+                    id="first"
+                    gltf-model="#animated-asset"
+                    scale="0.08055977605357927 0.08055977605357927 0.08055977605357927"
+                    animation-mixer="loop: repeat"
+                    
+                    gps-entity-place="latitude: 30.309370; longitude: 120.058140;"
+                    position="0 -5 0"
+                ></a-entity>
+                <a-entity
+                    look-at="[gps-camera]"
+                    id="second"
+                    gltf-model="#animated-asset"
+                    scale="0.08055977605357927 0.08055977605357927 0.08055977605357927"
+                    animation-mixer="loop: repeat"
+                    
+                    gps-entity-place="latitude: 30.309610; longitude: 120.058780;"
+                    position="0 -5 0"
+                ></a-entity>
+                <a-entity id="tunnel" tunnel>
+                <a-cylinder color="yellow" radius="0.25" rotation="0 90 -90"></a-cylinder>
+                </a-entity>
+                <a-entity id="tunnel_1" tunnel_1>
+                    <a-cylinder color="yellow" radius="0.25" rotation="0 90 -90"></a-cylinder>
+                </a-entity>
+                <a-entity id="tunnel_2" tunnel_2>
+                        <a-cylinder color="yellow" radius="0.25" rotation="0 90 -90"></a-cylinder>
+                </a-entity>
+                <a-entity id="tunnel_3" tunnel_3>
+                            <a-cylinder color="yellow" radius="0.25" rotation="0 90 -90"></a-cylinder>
+                </a-entity>
+                <a-entity id="tunnel_4" tunnel_4>
+                    <a-cylinder color="yellow" radius="0.25" rotation="0 90 -90"></a-cylinder>
+                </a-entity>
+                <a-entity id="tunnel_5" tunnel_5>
+                    <a-cylinder color="yellow" radius="0.25" rotation="0 90 -90"></a-cylinder>
+                </a-entity>
+                <a-entity id="tunnel_6" tunnel_6>
+                    <a-cylinder color="yellow" radius="0.25" rotation="0 90 -90"></a-cylinder>
+                </a-entity>
+                <a-entity id="tunnel_7" tunnel_7>
+                    <a-cylinder color="yellow" radius="0.25" rotation="0 90 -90"></a-cylinder>
+                </a-entity>
+                <a-entity id="tunnel_8" tunnel_8>
+                    <a-cylinder color="yellow" radius="0.25" rotation="0 90 -90"></a-cylinder>
+                </a-entity>
+                <a-entity id="tunnel_9" tunnel_9>
+                    <a-cylinder color="yellow" radius="0.25" rotation="0 90 -90"></a-cylinder>
+                </a-entity>
+                <a-entity id="tunnel_10" tunnel_10>
+                    <a-cylinder color="yellow" radius="0.25" rotation="0 90 -90"></a-cylinder>
+                </a-entity>
+                <a-entity id="tunnel_11" tunnel_11>
+                    <a-cylinder color="yellow" radius="0.25" rotation="0 90 -90"></a-cylinder>
+                </a-entity>
+                <a-entity id="tunnel_12" tunnel_12>
+                    <a-cylinder color="yellow" radius="0.25" rotation="0 90 -90"></a-cylinder>
+                </a-entity>
+                <a-entity id="tunnel_13" tunnel_13>
+                    <a-cylinder color="yellow" radius="0.25" rotation="0 90 -90"></a-cylinder>
+                </a-entity>
+                <a-entity id="tunnel_14" tunnel_14>
+                    <a-cylinder color="yellow" radius="0.25" rotation="0 90 -90"></a-cylinder>
+                </a-entity>
+                <a-entity id="tunnel_15" tunnel_15>
+                    <a-cylinder color="yellow" radius="0.25" rotation="0 90 -90"></a-cylinder>
+                </a-entity>
+                <a-entity id="tunnel_16" tunnel_16>
+                    <a-cylinder color="yellow" radius="0.25" rotation="0 90 -90"></a-cylinder>
+                </a-entity>
+                <a-entity id="tunnel_17" tunnel_17>
+                    <a-cylinder color="yellow" radius="0.25" rotation="0 90 -90"></a-cylinder>
+                </a-entity>
+                <a-entity id="tunnel_18" tunnel_18>
+                    <a-cylinder color="yellow" radius="0.25" rotation="0 90 -90"></a-cylinder>
+                </a-entity>
+                <a-entity id="tunnel_19" tunnel_19>
+                    <a-cylinder color="yellow" radius="0.25" rotation="0 90 -90"></a-cylinder>
+                </a-entity>
+                <a-entity id="tunnel_20" tunnel_20>
+                    <a-cylinder color="yellow" radius="0.25" rotation="0 90 -90"></a-cylinder>
+                </a-entity>
+                <a-entity
+                    look-at="[gps-camera]"
+                    id="third"
+                    gltf-model="#animated-asset"
+                    scale="0.08055977605357927 0.08055977605357927 0.08055977605357927"
+                    animation-mixer="loop: repeat"
+                    30.309330,120.057850
+                    gps-entity-place="latitude: 30.265320; longitude: 120.120650053;"
+                    position="0 -5 0"
+                ></a-entity>
+  
+                <a-entity
+                    look-at="[gps-camera]"
+                    id="fourth"
+                    gltf-model="#animated-asset"
+                    scale="0.08055977605357927 0.08055977605357927 0.08055977605357927"
+                    animation-mixer="loop: repeat"
+                    
+                    gps-entity-place="latitude: 30.309810; longitude: 120.059960;"
+                    position="0 -5 0"
+                ></a-entity>
+                <a-entity
+                    look-at="[gps-camera]"
+                    id="fifth"
+                    gltf-model="#animated-asset"
+                    scale="0.08055977605357927 0.08055977605357927 0.08055977605357927"
+                    animation-mixer="loop: repeat"
+                    gps-entity-place="latitude: 30.309250; longitude: 120.060160;"
+                    position="0 -5 0"
+                ></a-entity>
+                <a-entity
+                    look-at="[gps-camera]"
+                    id="sixth"
+                    gltf-model="#animated-asset"
+                    scale="0.08055977605357927 0.08055977605357927 0.08055977605357927"
+                    animation-mixer="loop: repeat"
+                    
+                    gps-entity-place="latitude:30.309410; longitude: 120.060100;"
+                    position="0 -5 0"
+                ></a-entity>
+                <a-entity
+                    look-at="[gps-camera]"
+                    id="seventh"
+                    gltf-model="#animated-asset"
+                    scale="0.08055977605357927 0.08055977605357927 0.08055977605357927"
+                    animation-mixer="loop: repeat"
+                    gps-entity-place="latitude: 30.309530; longitude:120.059510;"
+                    position="0 -5 0"
+                ></a-entity>
+                <a-entity
+                    look-at="[gps-camera]"
+                    id="eighth"
+                    gltf-model="#animated-asset"
+                    scale="0.08055977605357927 0.08055977605357927 0.08055977605357927"
+                    animation-mixer="loop: repeat"
+                    
+                    gps-entity-place="latitude: 30.308720; longitude: 120.059880;"
+                    position="0 -5 0"
+                ></a-entity>
+                <a-entity
+                    look-at="[gps-camera]"
+                    id="nineth"
+                    gltf-model="#animated-asset"
+                    scale="0.08055977605357927 0.08055977605357927 0.08055977605357927"
+                    animation-mixer="loop: repeat"
+                    
+                    gps-entity-place="latitude: 30.309240; longitude: 120.059550;"
+                    position="0 -5 0"
+                ></a-entity>
+                <a-entity
+                    look-at="[gps-camera]"
+                    id="tenth"
+                    gltf-model="#animated-asset"
+                    scale="0.08055977605357927 0.08055977605357927 0.08055977605357927"
+                    animation-mixer="loop: repeat"
+                    
+                    gps-entity-place="latitude: 30.309500; longitude: 120.059080;"
+                    position="0 -5 0"
 
-                <a-entity
-                    look-at="[gps-camera]"
-                    animation-mixer="loop: repeat"
-                    id="m0"
-                    gltf-model="#animated-asset"
-                    scale="0.06905123661735366 0.06905123661735366 0.06905123661735366"
-                    gps-entity-place="latitude: 30.30906867; longitude: 120.0599634;"
                 ></a-entity>
                 <a-entity
                     look-at="[gps-camera]"
-                    animation-mixer="loop: repeat"
-                    id="m1"
+                    id="eleven"
                     gltf-model="#animated-asset"
-                    scale="0.06905123661735366 0.06905123661735366 0.06905123661735366"
-                    gps-entity-place="latitude: 30.30892868; longitude: 120.0595004;"
+                    scale="0.08055977605357927 0.08055977605357927 0.08055977605357927"
+                    animation-mixer="loop: repeat"
+                    
+                    gps-entity-place="latitude: 30.309500; longitude: 120.058670;"
+                    position="0 -5 0"
                 ></a-entity>
                 <a-entity
                     look-at="[gps-camera]"
-                    animation-mixer="loop: repeat"
-                    id="m2"
+                    id="twelvth"
                     gltf-model="#animated-asset"
-                    scale="0.06905123661735366 0.06905123661735366 0.06905123661735366"
-                    gps-entity-place="latitude: 30.30827079; longitude: 120.0593102;"
+                    scale="0.08055977605357927 0.08055977605357927 0.08055977605357927"
+                    animation-mixer="loop: repeat"
+                    
+                    gps-entity-place="latitude: 30.309390; longitude: 120.059110;"
+                    position="0 -5 0"
                 ></a-entity>
                 <a-entity
                     look-at="[gps-camera]"
-                    animation-mixer="loop: repeat"
-                    id="m3"
+                    id="thirteenth"
                     gltf-model="#animated-asset"
-                    scale="0.06905123661735366 0.06905123661735366 0.06905123661735366"
-                    gps-entity-place="latitude: 30.30840798; longitude: 120.0597093;"
+                    scale="0.08055977605357927 0.08055977605357927 0.08055977605357927"
+                    animation-mixer="loop: repeat"
+                    
+                    gps-entity-place="latitude: 30.309330; longitude: 120.058700;"
+                    position="0 -5 0"
                 ></a-entity>
                 <a-entity
                     look-at="[gps-camera]"
-                    animation-mixer="loop: repeat"
-                    id="m4"
+                    id="forteenth"
                     gltf-model="#animated-asset"
-                    scale="0.06905123661735366 0.06905123661735366 0.06905123661735366"
-                    gps-entity-place="latitude: 30.30862935; longitude: 120.0596189;"
+                    scale="0.08055977605357927 0.08055977605357927 0.08055977605357927"
+                    animation-mixer="loop: repeat"
+                    
+                    gps-entity-place="latitude: 30.308860; longitude: 120.059030;"
+                    position="0 -5 0"
                 ></a-entity>
                 <a-entity
                     look-at="[gps-camera]"
-                    animation-mixer="loop: repeat"
+                    id="fifteenth"
                     gltf-model="#animated-asset"
-                    scale="0.06905123661735366 0.06905123661735366 0.06905123661735366"
-                    gps-entity-place="latitude: 30.30861376; longitude: 120.0594848;"
+                    scale="0.08055977605357927 0.08055977605357927 0.08055977605357927"
+                    animation-mixer="loop: repeat"
+                    
+                    gps-entity-place="latitude: 30.308180; longitude: 120.058230;"
+                    position="0 -5 0"
                 ></a-entity>
                 <a-entity
                     look-at="[gps-camera]"
-                    animation-mixer="loop: repeat"
+                    id="sixteenth"
                     gltf-model="#animated-asset"
-                    scale="0.06905123661735366 0.06905123661735366 0.06905123661735366"
-                    gps-entity-place="latitude: 30.3085327; longitude: 120.0589641;"
+                    scale="0.08055977605357927 0.08055977605357927 0.08055977605357927"
+                    animation-mixer="loop: repeat"
+                    
+                    gps-entity-place="latitude: 30.308380; longitude: 120.059680;"
+                    position="0 -5 0"
                 ></a-entity>
                 <a-entity
                     look-at="[gps-camera]"
-                    animation-mixer="loop: repeat"
+                    id="seventeenth"
                     gltf-model="#animated-asset"
-                    scale="0.06905123661735366 0.06905123661735366 0.06905123661735366"
-                    gps-entity-place="latitude: 30.30908286414483; longitude: 120.06041061133148;"
+                    scale="0.08055977605357927 0.08055977605357927 0.08055977605357927"
+                    animation-mixer="loop: repeat"
+                    
+                    gps-entity-place="latitude: 30.308490; longitude: 120.059290;"
+                    position="0 -5 0"
                 ></a-entity>
                 <a-entity
                     look-at="[gps-camera]"
-                    animation-mixer="loop: repeat"
+                    id="eighteenth"
                     gltf-model="#animated-asset"
-                    scale="0.06905123661735366 0.06905123661735366 0.06905123661735366"
-                    gps-entity-place="latitude: 30.309372775959808; longitude: 120.06026577204467;"
+                    scale="0.08055977605357927 0.08055977605357927 0.08055977605357927"
+                    animation-mixer="loop: repeat"
+                    
+                    gps-entity-place="latitude: 30.309010; longitude: 120.059540;"
+                    position="0 -5 0"
                 ></a-entity>
                 <a-entity
                     look-at="[gps-camera]"
-                    animation-mixer="loop: repeat"
+                    id="nineteenth"
                     gltf-model="#animated-asset"
-                    scale="0.06905123661735366 0.06905123661735366 0.06905123661735366"
-                    gps-entity-place="latitude: 30.309663613064064; longitude: 120.0601799413562;"
-                ></a-entity>
-                <a-entity
-                    look-at="[gps-camera]"
+                    scale="0.08055977605357927 0.08055977605357927 0.08055977605357927"
                     animation-mixer="loop: repeat"
-                    gltf-model="#animated-asset"
-                    scale="0.06905123661735366 0.06905123661735366 0.06905123661735366"
-                    gps-entity-place="latitude: 30.309954449446643; longitude: 120.06005655974151;"
+                    
+                    gps-entity-place="latitude: 30.309480; longitude: 120.058890;"
+                    position="0 -5 0"
                 ></a-entity>
-                <a-entity
-                    look-at="[gps-camera]"
-                    animation-mixer="loop: repeat"
-                    gltf-model="#animated-asset"
-                    scale="0.06905123661735366 0.06905123661735366 0.06905123661735366"
-                    gps-entity-place="latitude: 30.309777539515615; longitude: 120.05989026278259;"
-                ></a-entity>
-                <a-entity
-                    look-at="[gps-camera]"
-                    animation-mixer="loop: repeat"
-                    gltf-model="#animated-asset"
-                    scale="0.06905123661735366 0.06905123661735366 0.06905123661735366"
-                    gps-entity-place="latitude: 30.30962749008068; longitude: 120.05994390696289;"
-                ></a-entity>
-                <a-entity
-                    look-at="[gps-camera]"
-                    animation-mixer="loop: repeat"
-                    gltf-model="#animated-asset"
-                    scale="0.06905123661735366 0.06905123661735366 0.06905123661735366"
-                    gps-entity-place="latitude: 30.30955246520641; longitude: 120.06001364439727;"
-                ></a-entity>
-                <a-entity
-                    look-at="[gps-camera]"
-                    animation-mixer="loop: repeat"
-                    gltf-model="#animated-asset"
-                    scale="0.06905123661735366 0.06905123661735366 0.06905123661735366"
-                    gps-entity-place="latitude: 30.309468178081783; longitude: 120.05994390696289;"
-                ></a-entity>
-                <a-entity
-                    look-at="[gps-camera]"
-                    animation-mixer="loop: repeat"
-                    gltf-model="#animated-asset"
-                    scale="0.06905123661735366 0.06905123661735366 0.06905123661735366"
-                    gps-entity-place="latitude: 30.30943020244567; longitude: 120.06008874624969;"
-                ></a-entity>
-                <a-entity
-                    look-at="[gps-camera]"
-                    animation-mixer="loop: repeat"
-                    gltf-model="#animated-asset"
-                    scale="0.06905123661735366 0.06905123661735366 0.06905123661735366"
-                    gps-entity-place="latitude: 30.30932646423033; longitude: 120.06013166159393;"
-                ></a-entity>
-                <a-entity
-                    look-at="[gps-camera]"
-                    animation-mixer="loop: repeat"
-                    gltf-model="#animated-asset"
-                    scale="0.06905123661735366 0.06905123661735366 0.06905123661735366"
-                    gps-entity-place="latitude: 30.30927459515216; longitude: 120.06009411066773;"
-                ></a-entity>
-                <a-entity
-                    look-at="[gps-camera]"
-                    animation-mixer="loop: repeat"
-                    gltf-model="#animated-asset"
-                    scale="0.06905123661735366 0.06905123661735366 0.06905123661735366"
-                    gps-entity-place="latitude: 30.309190307647242; longitude: 120.06015311926605;"
-                ></a-entity>
-                <a-entity
-                    look-at="[gps-camera]"
-                    animation-mixer="loop: repeat"
-                    gltf-model="#animated-asset"
-                    scale="0.06905123661735366 0.06905123661735366 0.06905123661735366"
-                    gps-entity-place="latitude: 30.30908286414483; longitude: 120.06006728857757;"
-                ></a-entity>
-
-
-            <a-camera gps-camera rotation-reader></a-camera>
+       
+                
+            <a-camera 
+                      gps-camera 
+                      rotation-reader
+                      arjs-look-controls='smoothingFactor: 0.1'
+                      >
+            </a-camera>
         </a-scene>
     </body>
 </html>
